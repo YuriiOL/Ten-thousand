@@ -8,4 +8,16 @@ help:
 add: ## Add a new dependency
 	$(DOCKER_COMPOSE) run --rm app sh -c "python manage.py startapp $(word 2, $(MAKECMDGOALS))"
 
+migrations: ## Make migration
+	$(DOCKER_COMPOSE) run --rm app sh -c "python manage.py makemigrations"
+
+migrate: ## Migrate migration
+	$(DOCKER_COMPOSE) run --rm app sh -c "python manage.py migrate"
+
+dev: ## start app
+	$(DOCKER_COMPOSE) up
+
+down: ## stop app
+	$(DOCKER_COMPOSE) down
+
 
