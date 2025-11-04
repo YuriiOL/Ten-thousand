@@ -54,7 +54,14 @@ class Timer(models.Model):
     description = models.CharField(max_length=255)
     total_time = models.DateTimeField(default=None)
     last_time = models.DateTimeField(default=None)
+    category = models.ManyToManyField('Category')
 
     def __str__(self):
         return self.title
 
+class Category(models.Model):
+    """Category object."""
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name

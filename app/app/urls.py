@@ -30,5 +30,5 @@ urlpatterns = [
         name='api-docs',
     ),
     path('api/user', include('user.urls')),
-    path('api/timer', include('timer.urls'))
+    path('api/', include('timer.urls'))
 ]

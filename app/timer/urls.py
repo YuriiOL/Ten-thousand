@@ -6,7 +6,8 @@ from rest_framework.routers import DefaultRouter
 from timer import views
 
 router = DefaultRouter()
-router.register('', views.TimerViewSet)
+router.register('timer', views.TimerViewSet)
+router.register('category', views.CategoryViewSet)
 
 app_name = 'timer'
 

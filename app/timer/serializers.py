@@ -3,7 +3,7 @@ Serializers for timer API
 """
 from rest_framework import serializers
 
-from core.models import Timer
+from core.models import (Timer, Category)
 
 class TimerSerializer(serializers.ModelSerializer):
     """Serializer for Timer"""
@@ -18,3 +18,11 @@ class TimerDetailSerializer(TimerSerializer):
 
     class Meta(TimerSerializer.Meta):
         fields = TimerSerializer.Meta.fields + ['description']
+
+class CategorySerializer(serializers.ModelSerializer):
+    """Serializer for category view."""
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name']
+        read_only_fields = ['id']

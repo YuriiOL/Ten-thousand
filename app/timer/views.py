@@ -1,11 +1,11 @@
 """
 Views for the timer APIs
 """
-from rest_framework import viewsets
+from rest_framework import (viewsets, mixins)
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from core.models import Timer
+from core.models import (Timer, Category)
 from timer import serializers
 
 class TimerViewSet(viewsets.ModelViewSet):
@@ -29,3 +29,15 @@ class TimerViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         """Create a new timer."""
         serializer.save(user=self.request.user)
+
+class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """Views for manage category APIs"""
+    serializer_class = serializers.CategorySerializer
+    queryset = Category.objects.all()
+    authentication_classes = [TokenAuthentication]
+    permission_class = [IsAuthenticated]
+
+    def get_queryset(self):
+        """Restrict category to an authenticated user"""
+        return self.queryset.filter(user=self.request.user).order_by('-name')
+
