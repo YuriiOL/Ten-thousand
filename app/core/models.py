@@ -1,6 +1,7 @@
 """
 Database models.
 """
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -42,3 +43,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+class Timer(models.Model):
+    """Timer object."""
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    total_time = models.DateTimeField(default=None)
+    last_time = models.DateTimeField(default=None)
+
+    def __str__(self):
+        return self.title
+
